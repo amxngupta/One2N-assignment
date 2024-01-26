@@ -9,8 +9,8 @@
     ![1.png](images%2F1.png)
 
 * Start minikube with 4 nodes k8s cluster
-    >  minikube start --nodes 4 -p democluster
+    > minikube start --nodes 4 -p democluster
 
     ![2.png](images%2F2.png)
-
+    ![3.png](images%2F3.png)
 
