@@ -49,4 +49,4 @@
 
 * Since Current schedule for cronjob is set to every minute. You'll see new pods coming up every minute.
     ![10.png](images%2F10.png)
-  This Schedule can be changed as per requirement via values in the metrics-cronjob helm chart.
+  This Schedule can be changed as per requirement via `values.yaml` in the metrics-cronjob helm chart.
