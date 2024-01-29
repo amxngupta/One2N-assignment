@@ -7,7 +7,7 @@ Problem statement
 * Create a Kubernetes cron job that pulls node metrics like (CPU, Memory, Disk usage) and stores them in a file.
 * Every time the cron runs, it should create a new file. The filename should have the current timestamp.
 * By default, cron should be minute, but it should be configurable with the slightest changes to code.
-* Choose a tool of your choice to collect and expose metrics. Preferable is node exporter.
+* Choose a tool of your choice to collect and expose metrics. Preferable is [node exporter](https://github.com/prometheus/node_exporter)
 * The instances involved here are Kubernetes nodes themselves.
 
 Expected Output:
