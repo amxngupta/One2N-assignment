@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "metrics-cronjob.fullname" . }}
+  labels:
+    {{- include "metrics-cronjob.labels" . | nindent 4 }}
+spec:
+  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ include "metrics-cronjob.fullname" . }}
+        spec:
+          containers:
+          - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+            name: {{ .Values.name }}
+            {{- if .Values.command }}
+            command:
+              {{- toYaml .Values.command | nindent 14 }}
+            {{- end }}
+            args:
+              - |
+{{- $file := .Files.Get "scripts/entrypoint.sh" }}
+{{ tpl $file . | indent 16 }}
+            {{- with .Values.volumeMounts }}
+            volumeMounts:
+{{ toYaml . | indent 12 }}
+            {{- end }}
+          restartPolicy: {{ .Values.restartPolicy }}
+          {{- with .Values.volumes }}
+          volumes:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+  schedule: {{ .Values.schedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
